@@ -106,9 +106,9 @@
 <script type="text/javascript">
   
   jeedom.cmd.addUpdateFunction('#id#',function(_options) {
+    
       if (['1', 1, '99', 99, 'on'].includes(_options.display_value)) {
-        if (jeedom.cmd.normalizeName('#name#') == 'on') {          
-          
+        if (jeedom.cmd.normalizeName('#name#') == 'on'){          
           $('#eebsm_toggle_#id#').hide();          
           $('#toggle_#id#').addClass('toggle-off');
           $('#toggle_#id#').removeClass('toggle-on');
@@ -131,6 +131,9 @@
            $('#toggle_#id#').removeClass('toggle-on');
         }        
       }
+    
+        
+      
     });
 
     jeedom.cmd.refreshValue([{cmd_id :'#id#',display_value: '#state#', valueDate: '#valueDate#', collectDate: '#collectDate#', alertLevel: '#alertLevel#', unit: '#unite#'}])

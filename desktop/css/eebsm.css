@@ -1,0 +1,171 @@
+
+table.sortable td,
+table.sortable th {
+  padding: 0.125em 0.25em;
+  height: 45px;
+}
+
+table.sortable th {
+  font-weight: bold;
+  border-bottom: thin solid #888;
+  position: relative;
+}
+
+table.sortable th.no-sort {
+  padding-top: 0.35em;
+}
+
+table.sortable th:nth-child(5) {
+  width: 10em;
+}
+
+table.sortable th button {
+  font-weight: bold;
+  background: transparent;
+  border: none;
+  display: inline;
+  right: 0;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  text-align: left;
+  outline: none;
+  
+}
+
+table.sortable th::after, th.sorttable_sorted::after, th.sorttable_sorted_reverse::after {
+  content: " ";
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+}
+th.sorttable_sorted::after {
+  background: url(../png/arrow_down.png);
+  background-size: contain;
+}
+th.sorttable_sorted_reverse::after {
+  background: url(../png/arrow_up.png);
+  background-size: contain;
+}
+#sorttable_sortfwdind, #sorttable_sortrevind { display: none; } 
+
+   
+
+#PopupDiv{
+  z-index: 999;
+  position: absolute;
+  background-color: rgba(var(--defaultBkg-color),0.98);
+  padding: 20px;
+  border-radius: 10px;  
+  display: none;
+  text-align: center;
+  width: 700px;
+  top: 50%; left: 50%; 
+  transform: translate(-50%, -50%);
+
+	
+}
+
+#eebsmemplacement{
+  margin-left: auto;
+  margin-right: auto;
+  z-index: 1000;
+  width:80%;
+  height:40px; 
+}
+#PopupSelect{
+  z-index: 1000;
+  width:80%;
+  height:40px;      
+}
+  
+.eebsmdivbutton{
+  z-index: 1000;
+  margin-left: auto;
+  margin-right: auto;
+  width:90%px;
+  display:flex;
+  margin-top:10px;
+  
+}
+
+.eebsmbutton{
+  font-weight: 400;
+  color:#FFFFFF;
+  margin-left: auto;
+  margin-right: auto;
+  width:40%;
+  height:40px;
+  border-radius: 5px;      
+  background-color: #757575;      
+  cursor: pointer; 
+  line-height:40px;
+  vertical-align: middle;
+  -webkit-transition: all 0.3s;
+  -moz-transition: all 0.3s;
+  -o-transition: all 0.3s;
+  transition: all 0.3s;
+  font-size: 14px;
+  
+     
+}
+
+  	
+    
+.eebsmbutton:hover{      
+  font-size: 15px;
+  opacity: 0.75;
+  -webkit-transition: all 0.1s;
+  -moz-transition: all 0.1s;
+  -o-transition: all 0.1s;
+  transition: all 0.1s;
+}
+    
+.eebsmbutton:active {
+  opacity: 1;
+  color: #FFFFFF;
+  font-size: 12px;
+}
+
+.eebsminputzone{
+  margin-left: auto;
+  margin-right: auto;
+  margin-top:20px;
+  width:95%;  
+}
+.eebsmcentre{
+  text-align: center;
+  
+}
+
+.eebsmright
+{
+  margin : 0px;
+  height:40px;
+  width:100%;
+  
+}
+
+.dangerbutton
+{
+  float: right;
+  text-align: center;
+  width:40px;
+  height:40px;
+  line-height:46px;
+  vertical-align: middle;
+  font-size: 20px;
+  border-radius: 20px;
+  background-color:var(--al-danger-color);
+}
+
+#eebsm_nom_module{
+  margin-left: auto;
+  margin-right: auto;
+  margin-top:-40px;
+  font-size: 18px;
+  border: 1px solid var(--logo-primary-color);
+  width: 75%;
+  border-radius: 5px;
+  
+}

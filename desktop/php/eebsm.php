@@ -6,8 +6,76 @@ if (!isConnect('admin')) {
 $plugin = plugin::byId('eebsm');
 sendVarToJS('eqType', $plugin->getId());
 $eqLogics = eqLogic::byType($plugin->getId());
+log::add('eebsm', 'debug', "Lancement script");
+          
 ?>
 
+                 
+            	<div id="PopupDiv">
+                  	<div class='eebsmright'><div class='eebsmbutton dangerbutton' id="eebsmbuttonannuler"><i style="margin-left:-1px;" class='icon kiko-cross'></i></div></div>  
+  					<label  style='margin-top:10px;'class="control-label">{{Pour débuter la programmation, veuillez saisir les informations de connexion.}}</label>     
+    				<div class="eebsminputzone"> 
+  					<div id="diveebsmip" style="margin-top:2px; display:flex; line-height:40px; vertical-align: middle;"><div  style="width:30%;">Adresse IP&nbsp;:&nbsp;</div><input style="width:70%;" type="text" id="eebsmip" size="12" /></div>
+                    <div id="diveebsmmdp" style="margin-top:2px; display:flex; line-height:40px; vertical-align: middle;"><div  style="width:30%;">Mot de passe&nbsp;:&nbsp;</div><input style="width:70%;" type="password" id="eebsmmdp" size="12" /></div> 
+                    </div>
+                    <div id="eebsmboutontester" class="eebsmbutton" style="background-color:var(--al-warning-color); width:95%; margin-top:10px;">Tester la connexion</div> 
+                    <label id='labelcmd' style='margin-top:10px;'class="control-label">{{Quel type de commande voulez-vous ajouter à l'écran?}}</label>      <!-- ' -->
+    				<select id="eebsmtype">
+                        <option value="nope">-- Veuillez sélectionner un type de commande --</option>
+                        <option value="datetime">Date et heure</option>
+        				<option value="info">Info</option>
+        				<option value="button">Bouton</option>
+        				<option value="toggle">Bouton basculant</option>
+                        <option value="range">Curseur</option>
+                        <option value="roundrange">Curseur arrondi</option>
+                        <option value="color">Couleur</option>
+                        <option value="list">Liste</option>
+                        <option value="listbutton">Liste vers boutons</option>
+    				</select>                    
+                      <span style="width:90%;" id="eebsmemplacement">
+                      <label class="control-label">{{Emplacement à l'écran}}</label>      <!-- ' -->
+    					<select  id="emplacementSelect">
+                          <option value="nope">-- Veuillez sélectionner un emplacement --</option>
+                          <option value="accueil">Accueil</option>
+                          <option value="temperatures">Températures</option>
+                          <option value="lumieres">Lumières</option>                        
+    					</select>
+                      </span>                        
+                      <div class="eebsminputzone"> 
+                        
+                        <div id="diveebsmname" style="margin-top:2px; display:flex; line-height:40px; vertical-align: middle;"><div align=right style="width:30%;">{{Nom}}:&nbsp;</div><input style="width:70%;" type="text" id="eebsmname" required minlength="1" size="12" /></div>
+                        <div id="diveebsmmin" style="margin-top:2px; display:flex; line-height:40px; vertical-align: middle;"><div align=right style="width:30%;">{{Valeur mini}}:&nbsp;</div><input style="width:70%;" type="number" id="eebsmmin" size="12" onkeydown="return event.keyCode !== 69" maxlength="3" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"/></div>
+                        <div id="diveebsmmax" style="margin-top:2px; display:flex; line-height:40px; vertical-align: middle;"><div align=right style="width:30%;">{{Valeur maxi}}:&nbsp;</div><input style="width:70%;" type="number" id="eebsmmax" size="12"  onkeydown="return event.keyCode !== 69" maxlength="3" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"/></div>
+                        <div id="diveebsmval" style="margin-top:2px; display:flex; line-height:40px; vertical-align: middle;"><div align=right style="width:30%;">{{Valeur}}:&nbsp;</div><input style="width:70%;" type="number" id="eebsmval" size="12"  onkeydown="return event.keyCode !== 69" maxlength="3" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"/></div>
+                        <div id="diveebsmunit" style="margin-top:2px; display:flex; line-height:40px; vertical-align: middle;"><div align=right style="width:30%;">{{Unité}}:&nbsp;</div><input style="width:70%;" type="text" id="eebsmunit" size="12" /></div>
+                        <div id="diveebsmlist" style="margin-top:2px; display:flex; line-height:40px; vertical-align: middle;"><div align=right style="width:30%;">{{Contenu}}:&nbsp;</div><input placeholder="{{Séparer le contenu de la liste par | (Item1|Item2)}}" style="width:70%;" type="text" id="eebsmlist" size="12" /></div>
+                        
+                      
+                      </div>
+                    
+                      <div id="eebsmbuttonajouter" class="eebsmbutton" style="background-color:var(--bt-success-color); width:95%; margin-top:10px;">{{Ajouter}}</div>
+                      <div id="eebsmboutonenvoyer" class="eebsmbutton" style="background-color:var(--al-warning-color); width:95%; margin-top:10px;">{{Envoyer la mise à jour au module}}</div> 
+                      <table id="eebsmtable" class="eebsminputzone">
+                        <thead>
+                          <tr>
+                            <th class="eebsmcentre" width="15%">{{Type}}</th>
+                            <th class="eebsmcentre" width="15%">{{Emp.}}</th>
+                            <th class="eebsmcentre" width="30%">{{Nom}}</th>
+                            <th class="eebsmcentre" width="10%">{{Unité}}</th>
+                            <th class="eebsmcentre" width="8%">{{Mini}}</th>
+                            <th class="eebsmcentre" width="8%">{{Maxi}}</th>
+                            <th class="eebsmcentre" width="8%">{{Valeur}}</th>
+                            <th class="eebsmcentre" width="6%"></th>
+
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                          </tr>
+                        </tbody>
+                      </table>
+                  </div>
+                          
 <div class="row row-overflow">
 	<!-- Page d'accueil du plugin -->
 	<div class="col-xs-12 eqLogicThumbnailDisplay">
@@ -20,6 +88,11 @@ $eqLogics = eqLogic::byType($plugin->getId());
 						<i class="fas fa-plus-circle"></i>
 						<br>
 						<span>{{Ajouter}}</span>
+					</div>
+                    <div class="cursor eqLogicAction logoSecondary" id="bt_addeeBsmlvgl">
+						<i class='fas fa-pen '></i>
+						<br>
+						<span>{{Programmer un écran ESP32}}</span>
 					</div>
 					<div class="cursor eqLogicAction logoSecondary" data-action="gotoPluginConf">
 						<i class="fas fa-wrench"></i>
@@ -69,15 +142,21 @@ $eqLogics = eqLogic::byType($plugin->getId());
 				echo '<div class="eqLogicDisplayCard cursor ' . $opacity . '" data-eqLogic_id="' . $eqLogic->getId() . '">';
 				echo '<img src="' . $eqLogic->getImage() . '"/>';
 				echo '<br>';
-				echo '<span class="name">' . $eqLogic->getHumanName(true, true) . '</span>';
+				echo '<b><span class="name">' . $eqLogic->getHumanName(true, true) . '</span></b>';
+				echo '<span style="font-size: 12px;">'.$eqLogic->getConfiguration('adresseip'). '</span>';
+				
 				echo '<span class="hiddenAsCard displayTableRight hidden">';
 				echo ($eqLogic->getIsVisible() == 1) ? '<i class="fas fa-eye" title="{{Equipement visible}}"></i>' : '<i class="fas fa-eye-slash" title="{{Equipement non visible}}"></i>';
 				echo '</span>';
 				echo '</div>';
+              	
+              $type_cmd = $eqLogic->getConfiguration('cmd_type');
 			}
 			echo '</div>';
 		}
 		?>
+          
+          
 	</div> <!-- /.eqLogicThumbnailDisplay -->
 
 	<!-- Page de présentation de l'équipement -->
@@ -95,9 +174,9 @@ $eqLogics = eqLogic::byType($plugin->getId());
 		</div>
 		<!-- Onglets -->
 		<ul class="nav nav-tabs" role="tablist">
-			<li role="presentation"><a href="#" class="eqLogicAction" aria-controls="home" role="tab" data-toggle="tab" data-action="returnToThumbnailDisplay"><i class="fas fa-arrow-circle-left"></i></a></li>
-			<li role="presentation" class="active"><a href="#eqlogictab" aria-controls="home" role="tab" data-toggle="tab"><i class="fas fa-tachometer-alt"></i> {{Equipement}}</a></li>
-			<li role="presentation"><a href="#commandtab" aria-controls="home" role="tab" data-toggle="tab"><i class="fas fa-list"></i> {{Commandes}}</a></li>
+			<li id="eebsm_retour" role="presentation"><a href="#" class="eqLogicAction" aria-controls="home" role="tab" data-toggle="tab" data-action="returnToThumbnailDisplay"><i class="fas fa-arrow-circle-left"></i></a></li>
+			<li id="eebsm_equipement" role="presentation" class="active"><a href="#eqlogictab" aria-controls="home" role="tab" data-toggle="tab"><i class="fas fa-tachometer-alt"></i> {{Equipement}}</a></li>
+			<li id="eebsm_commandes" role="presentation" ><a href="#commandtab" aria-controls="home" role="tab" data-toggle="tab"><i class="fas fa-list"></i> {{Commandes}}</a></li>
 		</ul>
 		<div class="tab-content">
 			<!-- Onglet de configuration de l'équipement -->
@@ -151,6 +230,8 @@ $eqLogics = eqLogic::byType($plugin->getId());
 							</div>
 
 							<legend><i class="fas fa-cogs"></i> {{Paramètres spécifiques}}</legend>
+                                      
+                            
 							<div class="form-group">
 								<label class="col-sm-4 control-label">{{Adresse IP}}
 									<sup><i class="fas fa-question-circle tooltips" title="{{Renseignez l'adresse IP de l'ESP32}}"></i></sup>
@@ -211,26 +292,101 @@ $eqLogics = eqLogic::byType($plugin->getId());
 									<textarea class="form-control eqLogicAttr autogrow" data-l1key="comment"></textarea>
 								</div>
 							</div>
+                            <legend><i class="fas fa-at"></i> {{URL de retour}}</legend>
+							<div class="form-group">
+								<div class="alert alert-info col-xs-10 col-xs-offset-1 text-center callback">
+									<span>
+										<?php echo network::getNetworkAccess('external') . '/core/api/jeeApi.php?plugin=eebsm&type=event&apikey=' . jeedom::getApiKey($plugin->getId()) . '&id=#cmd_id# (&value=#value#)';
+										?>
+									</span>
+								</div>
+							</div>
 						</div>
 					</fieldset>
 				</form>
 			</div><!-- /.tabpanel #eqlogictab-->
 
-			<!-- Onglet des commandes de l'équipement -->
+			<!-- Onglet des commandes équipement -->
+            
 			<div role="tabpanel" class="tab-pane" id="commandtab">
-				
+				<div class="input-group pull-right" style="display:inline-flex;margin-top:5px;">					
+				</div>
 				<br>
+                <p style="color : #4894E1;">{{Vous pouvez réorganiser les lignes en cliquant sur l'entête des colonnes}}</p>   <!-- ' -->                
 				<div class="table-responsive">
-					<table id="table_cmd" class="table table-bordered table-condensed">
+					<table id="table_cmd" class="sortable table table-bordered table-condensed">
 						<thead>
 							<tr>
-								<th class="hidden-xs" style="min-width:50px;width:70px;">ID</th>
-								<th style="min-width:200px;width:350px;">{{Nom}}</th>
-                                <th style="width:90px;">{{ID eebsm}}</th>
-                                <th style="width:90px;">{{Unité}}</th>
-								<th style="min-width:260px;">{{Options}}</th>
-								<th>{{Etat}}</th>
-								<th style="min-width:80px;width:200px;">{{Actions}}</th>
+								<th class="sorttable_numeric" style="cursor : pointer; width:70px;">
+                                   <button>
+                                      ID
+                                      <span aria-hidden="true"></span>
+                                   </button>
+                                </th>
+                                      
+                                <th style="cursor : pointer; width:200px;">
+                                   <button>
+                                      Nom
+                                      <span aria-hidden="true"></span>
+                                   </button>
+                                </th>
+                                      
+                                <th class="sorttable_numeric" style="cursor : pointer; width:80px;">
+                                   <button>
+                                      eeBsm
+                                      <span aria-hidden="true"></span>
+                                   </button>
+                                </th>
+                                      
+                                <th style="cursor : pointer; width:80px;">
+                                   <button>
+                                      Unités
+                                      <span aria-hidden="true"></span>
+                                   </button>
+                                </th>
+                                
+                                <th class="sorttable_numeric" style="cursor : pointer; width:100px;">
+                                   <button>
+                                      Afficher
+                                      <span aria-hidden="true"></span>
+                                   </button>
+                                </th>
+                                
+                                <th class="sorttable_numeric" style="cursor : pointer; width:100px;">
+                                   <button>
+                                      Historiser
+                                      <span aria-hidden="true"></span>
+                                   </button>
+                                </th>
+                                
+                                <th style="cursor : pointer; width:150px;">
+                                   <button>
+                                      Type
+                                      <span aria-hidden="true"></span>
+                                   </button>
+                                </th>
+                                
+                                <th style="cursor : pointer;">
+                                   <button>
+                                      Paramètres
+                                      <span aria-hidden="true"></span>
+                                   </button>
+                                </th>
+                  				
+                                <th class="sorttable_numeric" style="cursor : pointer;">
+                                   <button>
+                                      Etat
+                                      <span aria-hidden="true"></span>
+                                   </button>
+                                </th>
+                                
+                                <th style="cursor : pointer; width:90px;">
+                                   <button>
+                                      {{Actions}}
+                                      <span aria-hidden="true"></span>
+                                   </button>
+                                </th>
+                                
 							</tr>
 						</thead>
 						<tbody>
@@ -238,12 +394,14 @@ $eqLogics = eqLogic::byType($plugin->getId());
 					</table>
 				</div>
 			</div><!-- /.tabpanel #commandtab-->
-
+			
 		</div><!-- /.tab-content -->
 	</div><!-- /.eqLogic -->
 </div><!-- /.row row-overflow -->
 
 <!-- Inclusion du fichier javascript du plugin (dossier, nom_du_fichier, extension_du_fichier, id_du_plugin) -->
 <?php include_file('desktop', 'eebsm', 'js', 'eebsm'); ?>
+<?php include_file('desktop', 'eebsm', 'css', 'eebsm'); ?>  
+<?php include_file('desktop', 'sort', 'js', 'eebsm'); ?>
 <!-- Inclusion du fichier javascript du core - NE PAS MODIFIER NI SUPPRIMER -->
 <?php include_file('core', 'plugin.template', 'js'); ?>

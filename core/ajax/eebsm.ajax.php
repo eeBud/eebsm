@@ -28,10 +28,22 @@ try {
     En V4 : autoriser l'exécution d'une méthode 'action' en GET en indiquant le(s) nom(s) de(s) action(s) dans un tableau en argument
   */
     ajax::init();
-
-
-
-    throw new Exception(__('Aucune méthode correspondante à', __FILE__) . ' : ' . init('action'));
+  
+  if (init('action') == 'GetHTTP') {
+    $url = (init('url'));
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, $url);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+    $result = curl_exec($ch);
+    if (curl_errno($ch)) {
+        
+    }
+    curl_close($ch);          
+    ajax::success($result);
+    
+  }
+  
+  throw new Exception(__('Aucune méthode correspondante à', __FILE__) . ' : ' . init('action'));
     /*     * *********Catch exeption*************** */
 }
 catch (Exception $e) {
