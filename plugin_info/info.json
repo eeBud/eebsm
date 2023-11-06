@@ -4,6 +4,7 @@
   "description" : "Plugin premettant d'inclure facilement la bibliothèque eeBudServerManager (ESP32) à Jeedom. Compatible à partir de la version bibliothèque minimale du 22/09/2023.",
   "licence" : "AGPL",
   "author" : "eeBud",
+  "version" : "1.1.0",
   "require" : "4.2",
   "category" : "automation protocol",
   "changelog" : "https://eebud.fr/website/changelog-plugin-jeedom-eebudservermanager/",
